@@ -9,7 +9,7 @@
     "start": "node index",
     "dev": "nodemon index"
   },
-  "author": "",
+  "author": "tarek",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

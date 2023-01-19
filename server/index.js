@@ -5,17 +5,38 @@ import {MongoClient} from 'mongodb'
 
 const uri  = 'mongodb+srv://Siciliamia:Siciliamia@cluster0.p50nxkz.mongodb.net/?retryWrites=true&w=majority'
 const client = new MongoClient(uri);
+const host = '127.0.0.1'
 const port = 3000
 const app = express()
  
-app.use(cors)
 app.use(express.json())
 
-app.get('/', function (req, res) {
-    res.send("Hello from the server");
+app.get('/', async function (req, res) {
+    res.json(await findAPIdata(client)
+    );
+})
+
+const APIName = 'Axolotl'
+
+app.get('/target', async function (req, res) {
+    res.json(await findAPIByName(client, APIName));
 })
 
 app.use("*", (req, res) => res.status(404).json({error: "not found"}))
+
+async function findAPIByName(client, APIName) {
+    await client.connect()
+    const result = await client.db('APIsdb').collection('APIsCollection')
+    .findOne({API: APIName})
+    return result
+}
+
+async function findAPIdata(client) {
+    await client.connect()
+    const result = await client.db('APIsdb').collection('APIsCollection')
+    .find({}).sort({length: -1}).limit(20).toArray()
+    return result
+}
 
 function saveDataToMongodb() {
     async function createAPIsCollection(client, APIsArray) {
@@ -35,27 +56,4 @@ function saveDataToMongodb() {
     })
 }
 
-async function findAPIByName(client, APIName) {
-    await client.connect()
-    const result = await client.db('APIsdb').collection('APIsCollection')
-    .findOne({API: APIName})
-
-    console.log(result)
-}
-
-async function findAPIdata(client) {
-    await client.connect()
-    const result = await client.db('APIsdb').collection('APIsCollection')
-    .find({}).sort({length: -1}).limit(20).toArray()
-    console.log(result)
-}
-
-app.get('/', (req, res) => {
-    res.send('welcome')
-})
-
-findAPIByName(client, 'Axolotl')
-
-findAPIdata(client)
-
-app.listen(port, () => {console.log(`Server running at https://${hostname}:${port}/`)})
+app.listen(port, host, () => {console.log(`Server running at ${host}:${port}/`)})
