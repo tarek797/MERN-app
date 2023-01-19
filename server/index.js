@@ -9,6 +9,7 @@ const host = '127.0.0.1'
 const port = 3000
 const app = express()
  
+app.use(cors())
 app.use(express.json())
 
 app.get('/', async function (req, res) {
