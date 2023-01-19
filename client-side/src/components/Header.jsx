@@ -1,12 +1,12 @@
 import React from "react"
+import {AppBar} from '@mui/material'
 
 function Header() {
 
-
     return (
-        <header>
-        
-        </header>
+        <AppBar>
+            <h1>API Posts</h1>
+        </AppBar>
     )
 }
 
