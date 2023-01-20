@@ -13,14 +13,13 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', async function (req, res) {
-    res.json(await findAPIdata(client)
-    );
+    res.json(await findAPIdata(client))
 })
 
-const APIName = 'Axolotl'
 
 app.get('/target', async function (req, res) {
-    res.json(await findAPIByName(client, APIName));
+    const {name} = req.query
+    res.json(await findAPIByName(client, name));
 })
 
 app.use("*", (req, res) => res.status(404).json({error: "not found"}))

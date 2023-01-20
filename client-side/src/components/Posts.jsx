@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Post from './post';
+import Post from './Post';
 import {Container, Grid } from '@mui/material';
 
 function Posts() {
@@ -24,7 +24,7 @@ function Posts() {
              rowSpacing={3} 
              columnSpacing={{ xs: 2, sm: 4, md: 6 }}
              justify = "center"
-             mt={3}
+             mt={4}
               >
                 {listItems}
             </Grid>

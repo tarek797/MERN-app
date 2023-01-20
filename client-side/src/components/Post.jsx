@@ -4,7 +4,7 @@ import React from 'react'
 function Post(props) {
     return (
 
-        <Grid item xs={12} sm={6} md={3} zeroMinWidth >
+        <Grid item xs={12} sm={6} md={4} zeroMinWidth >
             <Box sx={{
                 width: 250,
                 height: 150,
