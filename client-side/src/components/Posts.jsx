@@ -21,7 +21,7 @@ function Posts() {
 
     return (
             <Grid container 
-             rowSpacing={3} 
+             rowSpacing={8} 
              columnSpacing={{ xs: 2, sm: 4, md: 6 }}
              justify = "center"
              mt={4}

@@ -1,36 +1,49 @@
 import React, { useEffect } from "react"
-import { AppBar, Button, Input } from '@mui/material'
+import { AppBar, Button, Input, Modal } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useState } from "react"
 import axios from "axios"
 import Post from "./Post"
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    height:200,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
+
 function Header() {
     const server = 'http://127.0.0.1:3000/target'
     const [searched, setSearched] = useState('')
-    const [APIName, setAPIName] = useState('RandomDog')
+    const [APIName, setAPIName] = useState('')
     const [result, setResult] = useState({})
-    
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         setAPIName(searched)
+        handleOpen()
     }
 
     useEffect(() => {
-        axios.get(server, {params: {name: APIName}} )
-            .then(res => {
-                console.log(res.data)
-                setResult(res.data)
-            }
-            )
+        axios.get(server, { params: { name: APIName } })
+            .then(res => { setResult(res.data) })
             .catch(err => console.log(err))
     }, [APIName])
 
     return (
-        <AppBar>
+        <AppBar >
             <h1>API Posts</h1>
             <form onSubmit={handleSubmit}>
-                <label>Search for an Api: </label>
+                <label >Search for an Api: </label>
                 <Input type="text"
                     placeholder="type here!"
                     value={searched}
@@ -38,8 +51,17 @@ function Header() {
                         setSearched(event.target.value)
                     }} />
                 <Button variant="contained" startIcon={<SearchIcon />}
-                onClick={handleSubmit}></Button>
+                    onClick={handleSubmit}></Button>
             </form>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={style}
+            >
+                {result ? <Post key={result._id} {...result} /> : <h1>No search results</h1>}
+            </Modal>
         </AppBar>
     )
 }
