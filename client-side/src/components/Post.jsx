@@ -1,16 +1,16 @@
-import { Typography, Grid, Link, Box } from '@mui/material'
+import { Grid, Link, Box } from '@mui/material'
 import React from 'react'
 
 function Post(props) {
     return (
 
-        <Grid item xs={12} sm={6} md={4} zeroMinWidth >
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} zeroMinWidth >
             <Box sx={{
                 width: 250,
                 height: 150,
                 backgroundColor: 'primary.light',
                 borderRadius: 10,
-                padding:3,
+                padding:2,
                 overflow: 'hidden'
             }}>
                 <h1>{props.API}</h1>

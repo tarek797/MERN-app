@@ -34,15 +34,13 @@ async function findAPIByName(client, APIName) {
 async function findAPIdata(client) {
     await client.connect()
     const result = await client.db('APIsdb').collection('APIsCollection')
-    .find({}).sort({length: -1}).limit(20).toArray()
+    .find({}).sort({length: -1}).limit(40).toArray()
     return result
 }
 
 function saveDataToMongodb() {
     async function createAPIsCollection(client, APIsArray) {
         const result = await client.db("APIsdb").collection('APIsCollection').insertMany(APIsArray)
-        console.log(`${result.insertedCount} new documents with ids`)
-        console.log(result.insertedIds)
     }
     
     request({

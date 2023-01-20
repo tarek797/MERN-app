@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { AppBar, Button, Input, Modal } from '@mui/material'
+import { AppBar, Button, Input, Modal, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useState } from "react"
 import axios from "axios"
@@ -10,11 +10,10 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
-    height:200,
     bgcolor: 'background.paper',
     boxShadow: 24,
-    p: 4,
+    borderRadius: 10,
+    p:4
 };
 
 function Header() {
@@ -41,7 +40,7 @@ function Header() {
 
     return (
         <AppBar >
-            <h1>API Posts</h1>
+            <h1>API db</h1>
             <form onSubmit={handleSubmit}>
                 <label >Search for an Api: </label>
                 <Input type="text"
@@ -56,11 +55,11 @@ function Header() {
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                sx={style}
-            >
-                {result ? <Post key={result._id} {...result} /> : <h1>No search results</h1>}
+            >   
+                <Box sx={style}>
+                    {result ? <Post key={result._id} {...result} /> 
+                            : <h1>No API Available with the given name</h1>}
+                </Box>
             </Modal>
         </AppBar>
     )
